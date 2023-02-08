@@ -1,0 +1,19 @@
+<div class="container">
+
+    <form [formGroup]="angForm" (ngSubmit)="login(angForm)" novalidate  autocomplete="off" >
+        <h2 class="header">Login</h2>
+        <div class="formgroup">
+        <label for="username">username</label>
+        <input type="username" name="username" formControlName="username" autocomplete="off" class="form-control input-sm" placeholder="username">
+        </div>
+        <div class="formgroup">
+        <label for="password">Password</label>
+        <input type="password" name="password" formControlName="password" autocomplete="off" class="form-control input-sm" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-success" >Login</button>
+        </form>
+</div>
+
+
+
+

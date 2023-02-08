@@ -1,0 +1,28 @@
+body{
+    background-color: antiquewhite;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    row-gap: 2vh;
+    flex-direction: column;
+    height: 50vh;
+    width: 40vw;
+}
+button{
+    height: 10vh;
+    width: 10vw;
+    border-radius: 5px;
+    border:1px gray solid;
+    
+}
+
+input{
+    height: 12vh;
+    width: 30vw; 
+    border-radius: 5px;
+    border:1px gray solid;
+    /* padding-left: 13px; */
+}

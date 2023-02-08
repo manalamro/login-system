@@ -1,0 +1,48 @@
+<?php
+//mean this file can be accessed from third party application which are from different servers.
+header("Access-Control-Allow-Origin: *");
+// these api for defrent servers
+header('Access-Control-Allow-Credentials: true');
+header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header("Content-Type: application/json; charset=UTF-8");
+
+
+$host ="localhost";
+$username= 'root';
+$password='';
+$db_name="Data";
+
+$mysqli = new mysqli($host,$username,$password,$db_name);
+if ($mysqli->connect_error) {
+    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+    } 
+
+else{
+
+// since we will sent data from angular to server(php)its will be at json file format
+// so we use (file_get_contents) function to read the contents of a file into a string. 
+$postdata = file_get_contents("php://input");
+
+if(isset($postdata) && !empty($postdata))
+{
+    //The json_decode() function is used to decode or convert a JSON object to a PHP object.
+    $request = json_decode($postdata);
+    $password = mysqli_real_escape_string($mysqli, trim($request->password));
+    $username = mysqli_real_escape_string($mysqli, trim($request->username));
+
+    $sql = "select *from users where username = '$username' and password = '$password'";  
+
+    $result = mysqli_query($mysqli,$sql);
+    $nums=mysqli_num_rows($result);
+    if($nums>0){
+        $data = array('message'=>'success');
+    }
+    else
+    {
+        $data = array('message'=>'faild');
+
+}
+}
+
+}
