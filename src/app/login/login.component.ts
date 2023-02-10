@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators,FormBuilder } from "@angular/forms";
 import { first } from "rxjs";
 import { ApiService } from '../api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
 selector: 'app-login',
@@ -11,8 +12,8 @@ styleUrls: ['./login.component.css']
 
 export class LoginComponent implements OnInit {
     angForm: FormGroup;
-
-constructor(private fb:FormBuilder,private dataService: ApiService) {
+    
+constructor(private fb:FormBuilder,private httpClient: HttpClient,private dataService:ApiService) {
 this.angForm = this.fb.group({
   username:['', [Validators.required]],
   password:['', [Validators.required]],
@@ -21,21 +22,18 @@ this.angForm = this.fb.group({
 
   ngOnInit(): void {}
 
+
   login(angForm:any){
-    console.log("hey");
-    console.log("entered username: "+angForm.value.username);
-    console.log("entered password: "+angForm.value.password);
+  
     this.dataService.servicelogin(angForm.value.username,
-      angForm.value.password)
-    .pipe(first()).subscribe(
-        res => {
-          console.log("res:"+ res);
-            alert("perfect");
+      angForm.value.password).subscribe(
+        response => {
+          console.log(response);
+          alert(response);
         },
-      
-        error => {
-          alert("your password or username wrong :(");
-        });
-}
+        error => console.log(error)
+        )}
 
 }
+
+

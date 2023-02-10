@@ -6,22 +6,20 @@ providedIn: 'root'
 })
 
 export class ApiService {
-baseUrl : string = "http://localhost/my-project/php";
+baseUrl : string = "http://localhost/my-project/php/login.php";
 
 constructor(private httpClient : HttpClient) { }
-public servicelogin(username:any, password:any) {
-    console.log("hey from service file!");
-    localStorage.setItem('username',username);
-    return this.httpClient.post<any>(this.baseUrl + '/login.php',{ username, password })
-        .pipe(map(user => {
-            console.log("username"+ user.username);
-            this.setToken(user.username);
-            // return user;
-        }));
-}
 
-setToken(token:string){
-    localStorage.setItem('token',token);
-}
+public servicelogin(username:any, password:any) {
+    // console.log("hey from service file!");
+    // localStorage.setItem('username',username);
+   
+    return this.httpClient.post('http://localhost/my-project/php/login.php',{username, password},{responseType: 'text'} )
+        .pipe(map(user => {
+            return user;
+        }));
+} 
+
+
 
 }
